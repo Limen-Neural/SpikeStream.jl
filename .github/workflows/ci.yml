@@ -51,8 +51,8 @@ jobs:
         run: julia --project=. -e 'using Pkg; Pkg.test()'
 
   test-legacy-julia-1-2:
-    name: Julia 1.2 • ubuntu-20.04
-    runs-on: ubuntu-20.04
+    name: Julia 1.2 • ubuntu-22.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -70,10 +70,13 @@ jobs:
             ~/.julia/compiled
             ~/.julia/packages
             ~/.julia/registries
-          key: ubuntu-20.04-julia-1.2.0-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}
+          key: ubuntu-22.04-julia-1.2.0-${{ hashFiles('**/Project.toml') }}
           restore-keys: |
-            ubuntu-20.04-julia-1.2.0-
-            ubuntu-20.04-julia-
+            ubuntu-22.04-julia-1.2.0-
+            ubuntu-22.04-julia-
+
+      - name: Remove modern manifest for Julia 1.2 compatibility
+        run: rm -f Manifest.toml
 
       - name: Instantiate
         run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
