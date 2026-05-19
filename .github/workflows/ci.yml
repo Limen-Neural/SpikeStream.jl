@@ -50,8 +50,8 @@ jobs:
       - name: Run tests
         run: julia --project=. -e 'using Pkg; Pkg.test()'
 
-  test-legacy-julia-1-2:
-    name: Julia 1.2 • ubuntu-22.04
+  test-min-compat:
+    name: Julia 1.9 • ubuntu-22.04
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -60,7 +60,7 @@ jobs:
       - name: Setup Julia
         uses: julia-actions/setup-julia@v2
         with:
-          version: '1.2.0'
+          version: '1.9'
 
       - name: Cache Julia artifacts
         uses: actions/cache@v4
@@ -70,12 +70,12 @@ jobs:
             ~/.julia/compiled
             ~/.julia/packages
             ~/.julia/registries
-          key: ubuntu-22.04-julia-1.2.0-${{ hashFiles('**/Project.toml') }}
+          key: ubuntu-22.04-julia-1.9-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}
           restore-keys: |
-            ubuntu-22.04-julia-1.2.0-
+            ubuntu-22.04-julia-1.9-
             ubuntu-22.04-julia-
 
-      - name: Remove modern manifest for Julia 1.2 compatibility
+      - name: Remove manifest generated on newer Julia
         run: rm -f Manifest.toml
 
       - name: Instantiate
