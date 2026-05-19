@@ -1,25 +1,32 @@
 """
     SpikeStream
 
-Streaming time-series feature extraction designed to feed continuous data
-into spiking neural networks.
+Spike-stream feature extraction primitives for spiking neural systems.
 
-Provides three complementary signal analysis primitives:
-- `compute_hurst(prices)` — Hurst exponent via R/S analysis (trend conviction)
-- `compute_hawkes(prices)` — Self-exciting Hawkes intensity (momentum/burst detection)
-- `compute_gbm_surprise(prices)` — GBM Z-score residuals (anomaly detection)
+Primary package boundary:
+- `spike_count` — spike count in full stream or a time window
+- `spike_density` — spikes per unit time
+- `isi_stats` — inter-spike interval summary statistics
+- `detect_bursts` — burst detection from short ISIs
+- `windowed_spike_features` — rolling/windowed extraction
+- `normalized_feature_vector` — normalized `[0, 1]` feature vector output
 
-All functions accept a `Vector{<:Real}` and return a scalar `Float64` in a
-well-defined, SNN-compatible range.
+Legacy/transitional time-series proxy features (retained for compatibility):
+- `compute_hurst`
+- `compute_hawkes`
+- `compute_gbm_surprise`
 """
 module SpikeStream
 
 using Statistics
 
+include("spike_features.jl")
 include("hurst.jl")
 include("hawkes.jl")
 include("gbm_surprise.jl")
 
+export spike_count, spike_density, isi_stats, detect_bursts
+export windowed_spike_features, normalized_feature_vector
 export compute_hurst, compute_hawkes, compute_gbm_surprise
 
 end # module

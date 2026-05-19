@@ -3,26 +3,59 @@
 </p>
 
 <h1 align="center">SpikeStream.jl</h1>
-<p align="center">Streaming time-series feature extraction for spiking neural networks</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/language-Julia-9558B2" alt="Julia">
-  <img src="https://img.shields.io/badge/license-GPL--3.0-orange" alt="GPL-3.0">
-</p>
+<p align="center">Spike-stream feature extraction for spiking neural systems</p>
 
 ---
 
-Streaming signal processing primitives for feeding time-series data into SNNs:
-Hurst exponent, Hawkes self-exciting intensity, GBM surprise residuals — all optimized
-for real-time O(1)-update streaming with SNN-compatible output normalization.
+SpikeStream.jl is focused on feature extraction from spike-event streams.
 
-## Features
+## Core Features
 
-- `compute_hurst(signal_values)` — Hurst exponent via R/S analysis → `[0.2, 0.8]`
-- `compute_hawkes(signal_values)` — Hawkes self-exciting intensity → `[0.5, 3.0]`
-- `compute_gbm_surprise(signal_values)` — GBM surprise Z-score → `[-3.0, 3.0]`
-- Graceful fallbacks on short windows (returns neutral values, never errors)
-- Pure Julia stdlib — no external dependencies
+- `spike_count(spike_times; t_start, t_end)`
+- `spike_density(spike_times; t_start, t_end)`
+- `isi_stats(spike_times)`
+- `detect_bursts(spike_times; max_isi, min_spikes)`
+- `windowed_spike_features(spike_times; window_size, step)`
+- `normalized_feature_vector(spike_times)`
+
+## Output Ranges
+
+- `spike_count` → integer `>= 0`
+- `spike_density` → real `>= 0`
+- `isi_stats` → all fields non-negative
+- `detect_bursts` → vector of index ranges (possibly empty)
+- `windowed_spike_features`:
+  - `count >= 0`
+  - `density >= 0`
+  - `isi_mean >= 0`
+  - `isi_cv >= 0`
+  - `burst_count >= 0`
+- `normalized_feature_vector` → length-4 vector in `[0, 1]`
+
+## Quick Start
+
+```julia
+using SpikeStream
+
+spike_times = [0.001, 0.005, 0.009, 0.040, 0.042, 0.044, 0.090]
+
+count = spike_count(spike_times)
+density = spike_density(spike_times; t_start=0.0, t_end=0.1)
+stats = isi_stats(spike_times)
+bursts = detect_bursts(spike_times; max_isi=0.004, min_spikes=3)
+windows = windowed_spike_features(spike_times; window_size=0.03, step=0.03)
+vec = normalized_feature_vector(spike_times; t_start=0.0, t_end=0.1, max_density=200.0)
+```
+
+## Legacy / Transitional APIs
+
+The following market/time-series proxy features remain available temporarily for compatibility:
+
+- `compute_hurst`
+- `compute_hawkes`
+- `compute_gbm_surprise`
+
+They are transitional and may move to a separate package boundary later.
 
 ## Installation
 
@@ -30,54 +63,6 @@ for real-time O(1)-update streaming with SNN-compatible output normalization.
 using Pkg
 Pkg.add("SpikeStream")
 ```
-
-## Quick Start
-
-```julia
-using SpikeStream
-
-signal_values = [100.0, 101.2, 99.8, 102.5, 101.0, 103.2]
-
-h  = compute_hurst(signal_values)           # 0.5 = random walk, >0.5 = trending
-λ  = compute_hawkes(signal_values)          # >1.0 = clustering, self-exciting
-z  = compute_gbm_surprise(signal_values)    # |z| > 2 = anomalous spike
-
-# Feed directly into SNN encoder
-spikes = encode_for_snn([h, λ, z])
-```
-
-## Signal Interpretations
-
-| Feature | Range | Interpretation |
-|---------|-------|----------------|
-| Hurst | `[0.2, 0.8]` | `> 0.5` trending, `< 0.5` mean-reverting |
-| Hawkes λ | `[0.5, 3.0]` | `> 1.0` self-exciting (event clustering) |
-| GBM surprise | `[-3.0, 3.0]` | Z-score deviation from local GBM expectation |
-
-## Mathematical Foundations
-
-**Hurst Exponent (R/S Analysis)**
-```
-H = log(R/S) / log(n)    where R = range, S = std dev
-```
-*Hurst (1951) — long-range dependence in time series*
-
-**Hawkes Process Intensity**
-```
-λ(t) = μ + Σ_{t_i < t} α · exp(-β(t - t_i))
-```
-*Hawkes (1971) — self-exciting point processes*
-
-**GBM Surprise Z-Score**
-```
-dS = μS dt + σS dW  →  z = (log(S_t/S_{t-1}) - μ_hat) / σ_hat
-```
-*Stochastic diffusion processes; Itô calculus*
-
-## Signal Processing Pipeline
-
-Streaming feature extraction pipeline for neuromorphic systems. Works with any numeric time series — hardware telemetry, sensor data, or other signal sources.
-
 
 ## License
 
