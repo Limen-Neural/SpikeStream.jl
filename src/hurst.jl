@@ -22,8 +22,8 @@ function compute_hurst(signal_values::AbstractVector{<:Real})::Float64
     length(signal_values) < 20 && return 0.5
 
     diffs = diff(Float64.(signal_values))
-    m     = mean(diffs)
-    s     = std(diffs)
+    m = mean(diffs)
+    s = std(diffs)
 
     s < 1e-10 && return 0.5   # degenerate (constant series)
 

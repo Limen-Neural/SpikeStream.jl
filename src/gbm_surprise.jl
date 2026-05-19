@@ -27,10 +27,10 @@ z = compute_gbm_surprise(signal_values)   # positive → last move was above exp
 function compute_gbm_surprise(signal_values::AbstractVector{<:Real})::Float64
     length(signal_values) < 5 && return 0.0
 
-    sv         = Float64.(signal_values)
-    log_deltas = log.(sv[2:end] ./ sv[1:end-1])
-    drift      = mean(log_deltas)
-    vol        = std(log_deltas)
+    sv = Float64.(signal_values)
+    log_deltas = log.(sv[2:end] ./ sv[1:(end-1)])
+    drift = mean(log_deltas)
+    vol = std(log_deltas)
 
     vol < 1e-10 && return 0.0
 
