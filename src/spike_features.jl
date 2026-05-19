@@ -15,14 +15,10 @@ function spike_count(spike_times::AbstractVector{<:Real}; t_start=nothing, t_end
     end_t = isnothing(t_end) ? Inf : Float64(t_end)
     end_t < start_t && return 0
 
-    count = 0
-    for t in spike_times
-        tf = Float64(t)
-        if start_t <= tf <= end_t
-            count += 1
-        end
-    end
-    return count
+    times = sort(Float64.(spike_times))
+    left = searchsortedfirst(times, start_t)
+    right = searchsortedlast(times, end_t)
+    return max(0, right - left + 1)
 end
 
 """
@@ -36,8 +32,7 @@ or when the requested window has non-positive duration.
 function spike_density(spike_times::AbstractVector{<:Real}; t_start=nothing, t_end=nothing)::Float64
     if isnothing(t_start) || isnothing(t_end)
         length(spike_times) < 2 && return 0.0
-        t_min = minimum(Float64.(spike_times))
-        t_max = maximum(Float64.(spike_times))
+        t_min, t_max = extrema(Float64.(spike_times))
     else
         t_min = Float64(t_start)
         t_max = Float64(t_end)
@@ -62,10 +57,15 @@ function isi_stats(spike_times::AbstractVector{<:Real})
     length(spike_times) < 2 && return (mean=0.0, std=0.0, min=0.0, max=0.0, cv=0.0)
 
     times = sort(Float64.(spike_times))
-    isis = diff(times)
+    return isi_stats_sorted(times)
+end
 
+function isi_stats_sorted(sorted_spike_times::AbstractVector{Float64})
+    length(sorted_spike_times) < 2 && return (mean=0.0, std=0.0, min=0.0, max=0.0, cv=0.0)
+
+    isis = diff(sorted_spike_times)
     μ = mean(isis)
-    σ = std(isis)
+    σ = length(isis) > 1 ? std(isis) : 0.0
     min_isi = minimum(isis)
     max_isi = maximum(isis)
     cv = μ > 0 ? σ / μ : 0.0
@@ -82,10 +82,15 @@ Returns index ranges into the sorted spike-time sequence.
 function detect_bursts(spike_times::AbstractVector{<:Real}; max_isi::Real=0.02, min_spikes::Int=3)
     n = length(spike_times)
     n < min_spikes && return UnitRange{Int}[]
-
     times = sort(Float64.(spike_times))
-    isis = diff(times)
+    return detect_bursts_sorted(times; max_isi=max_isi, min_spikes=min_spikes)
+end
 
+function detect_bursts_sorted(sorted_spike_times::AbstractVector{Float64}; max_isi::Real=0.02, min_spikes::Int=3)
+    n = length(sorted_spike_times)
+    n < min_spikes && return UnitRange{Int}[]
+
+    isis = diff(sorted_spike_times)
     bursts = UnitRange{Int}[]
     run_start = 1
     run_len = 1
@@ -125,12 +130,12 @@ function windowed_spike_features(
     window_size <= 0 && throw(ArgumentError("window_size must be > 0"))
     step <= 0 && throw(ArgumentError("step must be > 0"))
 
-    if isempty(spike_times)
+    times = sort(Float64.(spike_times))
+
+    if isempty(times)
         base_start = isnothing(t_start) ? 0.0 : Float64(t_start)
         base_end = isnothing(t_end) ? 0.0 : Float64(t_end)
-        base_end < base_start && return NamedTuple[]
     else
-        times = sort(Float64.(spike_times))
         base_start = isnothing(t_start) ? first(times) : Float64(t_start)
         base_end = isnothing(t_end) ? last(times) : Float64(t_end)
     end
@@ -139,25 +144,32 @@ function windowed_spike_features(
 
     features = NamedTuple[]
     cur = base_start
+    left = 1
+    right = 0
+    n = length(times)
+
     while cur < base_end
         nxt = min(cur + window_size, base_end)
-        local = Float64[]
-        for t in spike_times
-            tf = Float64(t)
-            if cur <= tf < nxt
-                push!(local, tf)
-            end
+
+        while left <= n && times[left] < cur
+            left += 1
+        end
+        right = max(right, left - 1)
+        while right < n && times[right + 1] < nxt
+            right += 1
         end
 
-        c = length(local)
-        d = nxt > cur ? c / (nxt - cur) : 0.0
-        stats = isi_stats(local)
-        b = length(detect_bursts(local))
+        local_count = max(0, right - left + 1)
+        local = local_count > 0 ? @view times[left:right] : Float64[]
+
+        d = nxt > cur ? local_count / (nxt - cur) : 0.0
+        stats = isi_stats_sorted(local)
+        b = length(detect_bursts_sorted(local))
 
         push!(features, (
             t_start=cur,
             t_end=nxt,
-            count=c,
+            count=local_count,
             density=d,
             isi_mean=stats.mean,
             isi_cv=stats.cv,
@@ -175,11 +187,6 @@ end
 
 Build a normalized feature vector in `[0, 1]` order:
 `[count_norm, density_norm, isi_cv_norm, burst_norm]`.
-
-- `count_norm = count / max(count, 1)` (binary occupancy proxy)
-- `density_norm = clamp(density / max_density, 0, 1)`
-- `isi_cv_norm = clamp(cv / 2, 0, 1)`
-- `burst_norm = clamp(burst_count / max(count, 1), 0, 1)`
 """
 function normalized_feature_vector(
     spike_times::AbstractVector{<:Real};

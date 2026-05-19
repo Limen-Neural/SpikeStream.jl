@@ -32,6 +32,11 @@ using SpikeStream
 
         empty_stats = isi_stats([0.1])
         @test empty_stats.mean == 0.0
+
+        two_spike = isi_stats([0.1, 0.5])
+        @test two_spike.mean ≈ 0.4
+        @test two_spike.std == 0.0
+        @test two_spike.cv == 0.0
     end
 
     @testset "burst detection" begin
