@@ -2,7 +2,7 @@
   <img src="docs/logo.png" width="220" alt="Spikenaut">
 </p>
 
-<h1 align="center">SpikenautSignals.jl</h1>
+<h1 align="center">SpikeStream.jl</h1>
 <p align="center">Streaming time-series feature extraction for spiking neural networks</p>
 
 <p align="center">
@@ -28,13 +28,13 @@ for real-time O(1)-update streaming with SNN-compatible output normalization.
 
 ```julia
 using Pkg
-Pkg.add("SpikenautSignals")
+Pkg.add("SpikeStream")
 ```
 
 ## Quick Start
 
 ```julia
-using SpikenautSignals
+using SpikeStream
 
 signal_values = [100.0, 101.2, 99.8, 102.5, 101.0, 103.2]
 
@@ -78,13 +78,6 @@ dS = μS dt + σS dW  →  z = (log(S_t/S_{t-1}) - μ_hat) / σ_hat
 
 Streaming feature extraction pipeline for neuromorphic systems. Works with any numeric time series — hardware telemetry, sensor data, or other signal sources.
 
-## Part of the Spikenaut Ecosystem
-
-| Library | Purpose |
-|---------|---------|
-| [SpikenautLSM.jl](https://github.com/rmems/SpikenautLSM.jl) | Sparse LSM reservoir |
-| [SpikenautNero.jl](https://github.com/rmems/SpikenautNero.jl) | Relevance scoring |
-| [spikenaut-encoder](https://github.com/rmems/spikenaut-encoder) | Rust spike encoding |
 
 ## License
 

@@ -1,8 +1,8 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.12.5"
+julia_version = "1.12.6"
 manifest_format = "2.0"
-project_hash = "b945af961251312e90010bb4bb99d214d92f164a"
+project_hash = "2907fc52c5f5da3aa3687cb078c8f0b5cdc9d038"
 
 [[deps.Artifacts]]
 uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
@@ -27,7 +27,7 @@ deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
 uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
 version = "0.3.29+0"
 
-[[deps.SpikenautSignals]]
+[[deps.SpikeStream]]
 deps = ["Statistics"]
 path = "."
 uuid = "a3c7f1e2-8b4d-5c6e-9f0a-1b2c3d4e5f6a"

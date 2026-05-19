@@ -13,7 +13,7 @@ series is too short (< 20 elements) or degenerate (zero variance).
 
 # Example
 ```julia
-using SpikenautSignals
+using SpikeStream
 signal_values = cumsum(randn(200)) .+ 100.0
 h = compute_hurst(signal_values)   # typically near 0.5 for a random walk
 ```
