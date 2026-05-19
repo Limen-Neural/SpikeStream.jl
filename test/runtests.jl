@@ -1,15 +1,15 @@
 using Test
-using SpikenautSignals
+using SpikeStream
 using Statistics
 
-@testset "SpikenautSignals" begin
+@testset "SpikeStream" begin
 
     @testset "Package loads" begin
-        @test @isdefined(SpikenautSignals)
-        @test SpikenautSignals isa Module
-        @test isdefined(SpikenautSignals, :compute_hurst)
-        @test isdefined(SpikenautSignals, :compute_hawkes)
-        @test isdefined(SpikenautSignals, :compute_gbm_surprise)
+        @test @isdefined(SpikeStream)
+        @test SpikeStream isa Module
+        @test isdefined(SpikeStream, :compute_hurst)
+        @test isdefined(SpikeStream, :compute_hawkes)
+        @test isdefined(SpikeStream, :compute_gbm_surprise)
     end
 
     @testset "compute_hurst" begin

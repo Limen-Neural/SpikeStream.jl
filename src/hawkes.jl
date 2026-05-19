@@ -14,7 +14,7 @@ has fewer than 2 elements.
 
 # Example
 ```julia
-using SpikenautSignals
+using SpikeStream
 signal_values = [100.0, 100.5, 102.0, 101.0, 103.5]
 λ = compute_hawkes(signal_values)   # > 1.0 for volatile series
 ```

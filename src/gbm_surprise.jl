@@ -19,7 +19,7 @@ than 5 elements or volatility is effectively zero.
 
 # Example
 ```julia
-using SpikenautSignals
+using SpikeStream
 signal_values = [100.0, 101.0, 100.5, 102.0, 103.5]
 z = compute_gbm_surprise(signal_values)   # positive → last move was above expectation
 ```

@@ -1,5 +1,5 @@
 """
-    SpikenautSignals
+    SpikeStream
 
 Streaming time-series feature extraction designed to feed continuous data
 into spiking neural networks.
@@ -12,7 +12,7 @@ Provides three complementary signal analysis primitives:
 All functions accept a `Vector{<:Real}` and return a scalar `Float64` in a
 well-defined, SNN-compatible range.
 """
-module SpikenautSignals
+module SpikeStream
 
 using Statistics
 
