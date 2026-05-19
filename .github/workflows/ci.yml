@@ -65,5 +65,5 @@ jobs:
 
       - name: Verify formatting
         run: |
-          julia --project=. -e 'using Pkg; Pkg.add("JuliaFormatter"); using JuliaFormatter; format(".", overwrite=false, verbose=true)'
+          julia -e 'using Pkg; Pkg.activate(; temp=true); Pkg.add("JuliaFormatter"); using JuliaFormatter; format(".", overwrite=true, verbose=true)'
           git diff --exit-code
