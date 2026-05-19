@@ -4,6 +4,9 @@
 
 <h1 align="center">SpikeStream.jl</h1>
 <p align="center">Spike-stream feature extraction for spiking neural systems</p>
+<p align="center">
+  [![CI](https://github.com/Limen-Neural/SpikeStream.jl/actions/workflows/ci.yml/badge.svg)](https://github.com/Limen-Neural/SpikeStream.jl/actions/workflows/ci.yml)
+</p>
 
 ---
 
