@@ -83,10 +83,10 @@ using SpikeStream
         vec_window = normalized_feature_vector(
             spikes;
             t_start = 0.0,
-            t_end = 0.015,
+            t_end = 0.03,
             max_density = 100.0,
         )
-        @test vec_window[4] == 0.0
+        @test vec_window[4] ≈ 1 / 3
     end
 
     @testset "Legacy transitional APIs" begin
