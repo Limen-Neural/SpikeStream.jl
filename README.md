@@ -78,13 +78,6 @@ dS = μS dt + σS dW  →  z = (log(S_t/S_{t-1}) - μ_hat) / σ_hat
 
 Streaming feature extraction pipeline for neuromorphic systems. Works with any numeric time series — hardware telemetry, sensor data, or other signal sources.
 
-## Part of the Spikenaut Ecosystem
-
-| Library | Purpose |
-|---------|---------|
-| [SpikenautLSM.jl](https://github.com/rmems/SpikenautLSM.jl) | Sparse LSM reservoir |
-| [SpikenautNero.jl](https://github.com/rmems/SpikenautNero.jl) | Relevance scoring |
-| [spikenaut-encoder](https://github.com/rmems/spikenaut-encoder) | Rust spike encoding |
 
 ## License
 
