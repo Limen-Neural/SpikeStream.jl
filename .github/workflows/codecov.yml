@@ -8,32 +8,24 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: read
 
 jobs:
   coverage:
-    name: Code Coverage • Julia 1.11 • ubuntu-22.04
-    runs-on: ubuntu-22.04
+    name: Code Coverage • Julia 1 • ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Julia
-        uses: julia-actions/setup-julia@v2
+        uses: julia-actions/setup-julia@v3
         with:
-          version: '1.11'
+          version: '1'
 
       - name: Cache Julia artifacts
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.julia/artifacts
-            ~/.julia/compiled
-            ~/.julia/packages
-            ~/.julia/registries
-          key: ${{ runner.os }}-julia-1.11-${{ hashFiles('**/Project.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-julia-1.11-
+        uses: julia-actions/cache@v3
 
       - name: Generate coverage
         run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
