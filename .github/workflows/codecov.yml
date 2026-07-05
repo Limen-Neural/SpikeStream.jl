@@ -22,21 +22,21 @@ jobs:
           persist-credentials: false
 
       - name: Setup Julia
-        uses: julia-actions/setup-julia@v3
+        uses: julia-actions/setup-julia@fa02766e078afaaf09b14210362cee14137e6a32 # v3
         with:
           version: '1'
 
       - name: Cache Julia artifacts
-        uses: julia-actions/cache@v3
+        uses: julia-actions/cache@a45e8fa8be21c18a06b7177052533149e61e9b38 # v3
 
       - name: Generate coverage
         run: julia --project=. -e 'using Pkg; Pkg.test(coverage=true)'
 
       - name: Process coverage
-        uses: julia-actions/julia-processcoverage@v1
+        uses: julia-actions/julia-processcoverage@03114f09f119417c3242a9fb6e0b722676aedf38 # v1
 
       - name: Upload to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@0fb7174895f61a3b6b78fc075e0cd60383518dac # v5
         with:
           files: lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
