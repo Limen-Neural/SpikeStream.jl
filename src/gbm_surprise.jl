@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
 # gbm_surprise.jl — Geometric Brownian Motion Surprise Z-Score
 #
 # Computes the last logarithmic rate of change's deviation from the local

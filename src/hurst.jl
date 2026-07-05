@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
 # hurst.jl — Hurst Exponent via R/S Analysis
 #
 # Computes trend conviction / long-range dependence of a signal series.
