@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
 # hawkes.jl — Self-Exciting Hawkes Intensity Proxy
 #
 # Computes a momentum / adrenaline signal proportional to recent jump activity.

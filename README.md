@@ -6,6 +6,8 @@
 <p align="center">Spike-stream feature extraction for spiking neural systems</p>
 <p align="center">
   [![CI](https://github.com/Limen-Neural/SpikeStream.jl/actions/workflows/ci.yml/badge.svg)](https://github.com/Limen-Neural/SpikeStream.jl/actions/workflows/ci.yml)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE-MIT)
+  [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE-APACHE)
 </p>
 
 ---
@@ -69,4 +71,9 @@ Pkg.add("SpikeStream")
 
 ## License
 
-GPL-3.0-or-later
+Licensed under either of:
+
+- **MIT License** ([LICENSE-MIT](LICENSE-MIT))
+- **Apache License 2.0** ([LICENSE-APACHE](LICENSE-APACHE))
+
+at your option.

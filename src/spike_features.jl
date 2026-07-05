@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
 """
     spike_count(spike_times; t_start=nothing, t_end=nothing) -> Int
 
