@@ -36,7 +36,7 @@ git diff --exit-code  # fails if formatting changed anything
 ## Code Style
 
 - JuliaFormatter with default settings (no custom `.JuliaFormatter.toml`)
-- SPDX license header at top of every `.jl` file (dual MIT / Apache-2.0 identifier)
+- SPDX license header at top of every `.jl` file: `# SPDX-License-Identifier: MIT OR Apache-2.0`
 - Docstrings for all exported functions
 - No comments unless the rationale is non-obvious
 - Prefer editing existing files over creating new ones

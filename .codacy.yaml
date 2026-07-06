@@ -4,9 +4,6 @@ engines:
   markdownlint:
     enabled: true
     config:
-      # MD013 - Line length: disabled for AGENTS.md and REVIEW.md
-      MD013: false
-      # MD033 - Inline HTML: allow HTML in README badges
       MD033:
         allowed_elements:
           - a
