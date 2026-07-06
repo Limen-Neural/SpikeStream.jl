@@ -9,13 +9,22 @@ Manifest.toml
 *.dll
 *.dylib
 
-# IDE
+# Agent / tool directories
+.mimocode/
+.kilo/
+.codex/
+.cursor/
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
+.agents/
+.opencode/
+.claude/
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~

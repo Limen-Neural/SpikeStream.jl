@@ -11,90 +11,52 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: read
 
 jobs:
-  test-modern:
-    name: Julia 1.11 • ${{ matrix.os }}
+  test:
+    name: Julia ${{ matrix.version }} • ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04] # Removed macos-13
+        version: ['min', '1', 'pre']
+        os: [ubuntu-latest]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Setup Julia
-        uses: julia-actions/setup-julia@v2
+        uses: julia-actions/setup-julia@fa02766e078afaaf09b14210362cee14137e6a32 # v3
         with:
-          version: '1.11'
+          version: ${{ matrix.version }}
 
       - name: Cache Julia artifacts
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.julia/artifacts
-            ~/.julia/compiled
-            ~/.julia/packages
-            ~/.julia/registries
-          key: ${{ runner.os }}-julia-1.11-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-julia-1.11-
-            ${{ runner.os }}-julia-
+        uses: julia-actions/cache@a45e8fa8be21c18a06b7177052533149e61e9b38 # v3
 
-      - name: Instantiate
-        run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
+      - name: Build package
+        uses: julia-actions/julia-buildpkg@e3eb439fad4f9aba7da2667e7510e4a46ebc46e1 # v1
 
       - name: Run tests
-        run: julia --project=. -e 'using Pkg; Pkg.test()'
-
-  test-min-compat:
-    name: Julia 1.9 • ubuntu-22.04
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Julia
-        uses: julia-actions/setup-julia@v2
-        with:
-          version: '1.9'
-
-      - name: Cache Julia artifacts
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.julia/artifacts
-            ~/.julia/compiled
-            ~/.julia/packages
-            ~/.julia/registries
-          key: ubuntu-22.04-julia-1.9-${{ hashFiles('**/Project.toml', '**/Manifest.toml') }}
-          restore-keys: |
-            ubuntu-22.04-julia-1.9-
-            ubuntu-22.04-julia-
-
-      - name: Remove manifest generated on newer Julia
-        run: rm -f Manifest.toml
-
-      - name: Instantiate
-        run: julia --project=. -e 'using Pkg; Pkg.instantiate()'
-
-      - name: Run tests
-        run: julia --project=. -e 'using Pkg; Pkg.test()'
+        uses: julia-actions/julia-runtest@6e050c8013b833b1195105ff2fce9cd802f53271 # v1
 
   lint-format:
-    name: Format check • Julia 1.11 • ubuntu-22.04
-    runs-on: ubuntu-22.04
+    name: Format check • Julia 1 • ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Setup Julia
-        uses: julia-actions/setup-julia@v2
+        uses: julia-actions/setup-julia@fa02766e078afaaf09b14210362cee14137e6a32 # v3
         with:
-          version: '1.11'
+          version: '1'
 
       - name: Verify formatting
         run: |
