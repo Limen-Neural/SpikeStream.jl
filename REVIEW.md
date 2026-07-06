@@ -23,13 +23,13 @@ Code review guidelines for automated bots and human reviewers on SpikeStream.jl.
 
 - Focus on: security (unpinned actions, credential persistence, secret exposure)
 - Ignore: style nitpicks on internal files, plan file lint issues
-- SHA pinning: managed by Dependabot after merge — do not block PRs for this
+- SHA pinning: required for third-party actions. First-party GitHub actions (e.g., `actions/checkout`) may use version tags. Dependabot manages SHA updates after merge
 
 ### Devin / CodeRabbit / Kilo
 
 - Focus on: correctness of logic, missing steps, output range accuracy
 - Ignore: plan-vs-implementation mismatches (plan files are internal artifacts that may be stale)
-- Do not flag `@v3`/`@v5` version tags as issues — Dependabot handles pinning
+- Do not flag version tags on first-party GitHub actions (`actions/checkout`) — only flag third-party actions that lack SHA pinning
 
 ### All Bots
 
