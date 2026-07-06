@@ -46,7 +46,7 @@ git diff --exit-code  # fails if formatting changed anything
 
 - Tests live in `test/runtests.jl`
 - Run full suite before pushing: `julia --project=. -e 'using Pkg; Pkg.test()'`
-- All tests should pass; coverage upload is handled by Codecov CI
+- All tests must pass; coverage upload is handled by Codecov CI
 - Output ranges are documented in README — do not change without updating docs
 
 ## CI Workflows
