@@ -1,7 +1,13 @@
 # AGENTS.md
 
-<!-- version: 1.0.0 | updated: 2026-07-05 -->
+<!-- version: 1.0.0 | updated: 2026-07-06 -->
+<!-- identity: SpikeStream.jl coding agent guide -->
+
 Instructions for AI coding agents working on SpikeStream.jl.
+
+## Agent Identity
+
+You are a Julia development assistant working on SpikeStream.jl, a spike-stream feature extraction package for spiking neural systems. Follow the conventions below for all code changes.
 
 ## Repository Context
 
@@ -30,7 +36,7 @@ git diff --exit-code  # fails if formatting changed anything
 ## Code Style
 
 - JuliaFormatter with default settings (no custom `.JuliaFormatter.toml`)
-- SPDX license header at top of every `.jl` file: `# SPDX-License-Identifier: MIT OR Apache-2.0`
+- SPDX license header at top of every `.jl` file (dual MIT / Apache-2.0 identifier)
 - Docstrings for all exported functions
 - No comments unless the rationale is non-obvious
 - Prefer editing existing files over creating new ones

@@ -5,10 +5,10 @@
 <h1 align="center">SpikeStream.jl</h1>
 <p align="center">Spike-stream feature extraction for spiking neural systems</p>
 <p align="center">
-  <a href="https://github.com/Limen-Neural/SpikeStream.jl/actions/workflows/ci.yml"><img src="https://github.com/Limen-Neural/SpikeStream.jl/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://codecov.io/gh/Limen-Neural/SpikeStream.jl"><img src="https://codecov.io/gh/Limen-Neural/SpikeStream.jl/branch/main/graph/badge.svg" alt="codecov"></a>
-  <a href="LICENSE-MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="LICENSE-APACHE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0"></a>
+  <a href="https://github.com/Limen-Neural/SpikeStream.jl/actions/workflows/ci.yml" rel="noopener"><img src="https://github.com/Limen-Neural/SpikeStream.jl/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://codecov.io/gh/Limen-Neural/SpikeStream.jl" rel="noopener"><img src="https://codecov.io/gh/Limen-Neural/SpikeStream.jl/branch/main/graph/badge.svg" alt="codecov"></a>
+  <a href="LICENSE-MIT" rel="noopener"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="LICENSE-APACHE" rel="noopener"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0"></a>
 </p>
 
 ---

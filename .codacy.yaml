@@ -1,0 +1,26 @@
+---
+version: "1"
+engines:
+  markdownlint:
+    enabled: true
+    config:
+      # MD013 - Line length: disabled for AGENTS.md and REVIEW.md
+      MD013: false
+      # MD033 - Inline HTML: allow HTML in README badges
+      MD033:
+        allowed_elements:
+          - a
+          - img
+          - p
+          - h1
+          - h2
+          - h3
+          - br
+exclude_patterns:
+  - ".mimocode/"
+  - ".kilo/"
+  - ".codex/"
+  - ".cursor/"
+  - ".vscode/"
+  - "Manifest.toml"
+  - "docs/logo.png"
