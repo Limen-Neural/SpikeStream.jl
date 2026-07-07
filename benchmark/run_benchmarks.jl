@@ -2,7 +2,6 @@
 
 using BenchmarkTools
 using SpikeStream
-using Statistics
 using Random
 
 Random.seed!(42)
@@ -11,11 +10,7 @@ function generate_spike_train(n::Int, duration::Float64)
     return sort!(rand(n) .* duration)
 end
 
-const SCALES = [
-    ("small", 100, 1.0),
-    ("medium", 1_000, 10.0),
-    ("large", 10_000, 100.0),
-]
+const SCALES = [("small", 100, 1.0), ("medium", 1_000, 10.0), ("large", 10_000, 100.0)]
 
 const SUITE = BenchmarkGroup()
 
