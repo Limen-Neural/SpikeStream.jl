@@ -1,0 +1,24 @@
+---
+version: "1"
+engines:
+  markdownlint:
+    enabled: true
+    config:
+      MD013: false
+      MD033:
+        allowed_elements:
+          - a
+          - img
+          - p
+          - h1
+          - h2
+          - h3
+          - br
+exclude_patterns:
+  - ".mimocode/"
+  - ".kilo/"
+  - ".codex/"
+  - ".cursor/"
+  - ".vscode/"
+  - "Manifest.toml"
+  - "docs/logo.png"
