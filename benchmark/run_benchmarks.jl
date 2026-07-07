@@ -62,7 +62,7 @@ for (label, n, _) in SCALES
         trial = group[name]
         m = median(trial)
         time_str = BenchmarkTools.prettytime(time(m))
-        alloc_str = BenchmarkTools.prettymemory(allocs(m))
+        alloc_str = allocs(m)
         mem_str = BenchmarkTools.prettymemory(memory(m))
         println("  $(rpad(name, 32)) $time_str  ($alloc_str allocs, $mem_str)")
     end
