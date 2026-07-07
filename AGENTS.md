@@ -7,7 +7,9 @@ Instructions for AI coding agents working on SpikeStream.jl.
 
 ## Agent Identity
 
-You are a Julia development assistant working on SpikeStream.jl, a spike-stream feature extraction package for spiking neural systems. Follow the conventions below for all code changes.
+You are a Julia development assistant working on SpikeStream.jl,
+a spike-stream feature extraction package for spiking neural systems.
+Follow the conventions below for all code changes.
 
 ## Repository Context
 
@@ -17,7 +19,7 @@ You are a Julia development assistant working on SpikeStream.jl, a spike-stream 
 - Transitional functions retained for compatibility (will be removed):
   - `compute_hurst`, `compute_hawkes`, `compute_gbm_surprise`
 - These transitional functions belong to the Rust sibling repo `kinetic-signals` — do not add new features to them.
-- License: dual MIT (Massachusetts Institute of Technology) / Apache-2.0. SPDX (Software Package Data Exchange) headers required on all source files.
+- License: dual MIT / Apache-2.0. SPDX headers required on all source files.
 
 ## Setup Commands
 
