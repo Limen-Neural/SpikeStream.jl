@@ -13,22 +13,14 @@ Primary package boundary:
 - `windowed_spike_features` — rolling/windowed extraction
 - `normalized_feature_vector` — normalized `[0, 1]` feature vector output
 
-Legacy/transitional time-series proxy features (retained for compatibility):
-- `compute_hurst`
-- `compute_hawkes`
-- `compute_gbm_surprise`
 """
 module SpikeStream
 
 using Statistics
 
 include("spike_features.jl")
-include("hurst.jl")
-include("hawkes.jl")
-include("gbm_surprise.jl")
 
 export spike_count, spike_density, isi_stats, detect_bursts
 export windowed_spike_features, normalized_feature_vector
-export compute_hurst, compute_hawkes, compute_gbm_surprise
 
 end # module
