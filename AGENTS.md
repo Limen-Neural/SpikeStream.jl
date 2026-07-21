@@ -17,7 +17,7 @@ Follow the conventions below for all code changes.
 - Package boundary — these functions belong to SpikeStream.jl:
   - `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector`
 - These functions are no longer part of SpikeStream.jl.
-- Use the Rust sibling repo `kinetic-signals` for Hurst, Hawkes, and GBM-surprise features.
+- Use the Rust sibling repo `kinetic-signals` for Hurst, Hawkes, and Geometric Brownian Motion (GBM) surprise features.
 - License: dual MIT / Apache-2.0. SPDX headers required on all source files.
 
 ## Setup Commands
