@@ -13,6 +13,8 @@ Follow the conventions below for all code changes.
 
 ## Repository Context
 
+- Issue tracker: Linear issue markers use the acronym LIM (Linear issue ID prefix).
+
 - SpikeStream.jl is a Julia package for spike-stream feature extraction in spiking neural systems (SNNs).
 - Package boundary — these functions belong to SpikeStream.jl:
   - `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector`
