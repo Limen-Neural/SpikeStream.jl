@@ -91,9 +91,4 @@ using SpikeStream
         @test vec_window[4] ≈ 1 / 3
     end
 
-    @testset "Legacy transitional APIs" begin
-        @test compute_hurst([1.0, 2.0, 3.0]) == 0.5
-        @test compute_hawkes([100.0]) == 1.0
-        @test compute_gbm_surprise([100.0, 101.0]) == 0.0
-    end
 end

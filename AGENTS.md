@@ -16,9 +16,8 @@ Follow the conventions below for all code changes.
 - SpikeStream.jl is a Julia package for spike-stream feature extraction in spiking neural systems (SNNs).
 - Package boundary — these functions belong to SpikeStream.jl:
   - `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector`
-- Transitional functions retained for compatibility (will be removed):
-  - `compute_hurst`, `compute_hawkes`, `compute_gbm_surprise`
-- These transitional functions belong to the Rust sibling repo `kinetic-signals` — do not add new features to them.
+- These functions are no longer part of SpikeStream.jl.
+- Use the Rust sibling repo `kinetic-signals` for Hurst, Hawkes, and Geometric Brownian Motion (GBM) surprise features.
 - License: dual MIT / Apache-2.0. SPDX headers required on all source files.
 
 ## Setup Commands

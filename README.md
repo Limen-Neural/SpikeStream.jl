@@ -53,16 +53,6 @@ windows = windowed_spike_features(spike_times; window_size=0.03, step=0.03)
 vec = normalized_feature_vector(spike_times; t_start=0.0, t_end=0.1, max_density=200.0)
 ```
 
-## Legacy / Transitional APIs
-
-The following market/time-series proxy features remain available temporarily for compatibility:
-
-- `compute_hurst`
-- `compute_hawkes`
-- `compute_gbm_surprise`
-
-They are transitional and may move to a separate package boundary later.
-
 ## Installation
 
 ```julia
