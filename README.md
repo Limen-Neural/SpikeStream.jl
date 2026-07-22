@@ -51,7 +51,7 @@ SpikeStream.jl owns spike-stream **feature extraction** only. Kinetic / signal-d
 | Entropy | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Not part of SpikeStream.jl |
 | Volatility | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Not part of SpikeStream.jl |
 
-**Integration**
+### Integration
 
 - No FFI between SpikeStream.jl and kinetic-signals today.
 - Spike fixtures for cross-package tests will live in this package (LIM-41).

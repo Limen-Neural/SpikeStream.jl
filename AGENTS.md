@@ -16,9 +16,9 @@ Follow the conventions below for all code changes.
 - SpikeStream.jl is a Julia package for spike-stream feature extraction in spiking neural systems (SNNs).
 - Package boundary — these functions belong to SpikeStream.jl:
   - `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector`
-- Sibling repo: [Limen-Neural/kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) (Rust) owns Hurst, Hawkes, surprise/GBM, entropy, and volatility.
+- Sibling repo: [Limen-Neural/kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) (Rust) owns Hurst, Hawkes, surprise/geometric Brownian motion (GBM), entropy, and volatility.
 - Removed from SpikeStream.jl (do not reintroduce): `compute_hurst`, `compute_hawkes`, `compute_gbm_surprise` — now kinetic-signals only.
-- Integration: no FFI today; spike fixtures will live in this package (LIM-41); kinetic-signals `shared_vectors.json` is Rust-only.
+- Integration: no foreign-function interface (FFI) today; spike fixtures will live in this package (LIM-41); kinetic-signals `shared_vectors.json` is Rust-only.
 - License: dual MIT / Apache-2.0. SPDX headers required on all source files.
 
 ## Setup Commands
