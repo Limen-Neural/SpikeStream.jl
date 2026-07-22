@@ -28,3 +28,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Git worktrees (local isolation)
+.worktrees/
