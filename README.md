@@ -47,7 +47,7 @@ SpikeStream.jl owns spike-stream **feature extraction** only. Kinetic / signal-d
 | `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector` | **SpikeStream.jl** | Public API of this package |
 | Hurst exponent | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_hurst` (removed) |
 | Hawkes intensity | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_hawkes` (removed) |
-| Surprise / GBM | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_gbm_surprise` (removed) |
+| Surprise / geometric Brownian motion (GBM) | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_gbm_surprise` (removed) |
 | Entropy | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Not part of SpikeStream.jl |
 | Volatility | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Not part of SpikeStream.jl |
 
