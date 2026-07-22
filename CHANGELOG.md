@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Document package boundary vs kinetic-signals (LIM-214).
+- Add frozen spike feature fixtures and range checks under `test/fixtures/spike_vectors.json` (LIM-41); JSON is a test-only dependency.
+
 ### Removed
 
 - `compute_hurst`, `compute_hawkes`, and `compute_gbm_surprise` transitional

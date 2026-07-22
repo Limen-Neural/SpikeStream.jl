@@ -53,8 +53,9 @@ SpikeStream.jl owns spike-stream **feature extraction** only. Kinetic / signal-d
 
 ### Integration
 
-- No FFI between SpikeStream.jl and kinetic-signals today.
-- Spike fixtures for cross-package tests will live in this package (LIM-41).
+- No foreign-function interface (FFI) between SpikeStream.jl and kinetic-signals today.
+- Spike fixtures for cross-package tests live in this package: [`test/fixtures/spike_vectors.json`](test/fixtures/spike_vectors.json) (LIM-41).
+- Window note: with explicit `t_end`, `windowed_spike_features` uses half-open windows `[t_start, t_end)`; `spike_count` / `spike_density` use inclusive ends. Fixtures encode this.
 - kinetic-signals `shared_vectors.json` is Rust-only (not consumed by SpikeStream.jl).
 
 ## Quick Start

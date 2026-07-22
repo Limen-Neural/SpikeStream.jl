@@ -20,7 +20,7 @@ Follow the conventions below for all code changes.
   - `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector`
 - Sibling repo: [Limen-Neural/kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) (Rust) owns Hurst, Hawkes, surprise/geometric Brownian motion (GBM), entropy, and volatility.
 - Removed from SpikeStream.jl (do not reintroduce): `compute_hurst`, `compute_hawkes`, `compute_gbm_surprise` — now kinetic-signals only.
-- Integration: no foreign-function interface (FFI) today; spike fixtures will live in this package (LIM-41); kinetic-signals `shared_vectors.json` is Rust-only.
+- Integration: no foreign-function interface (FFI) today; spike fixtures live in `test/fixtures/spike_vectors.json` (LIM-41); kinetic-signals `shared_vectors.json` is Rust-only.
 - License: dual MIT / Apache-2.0. SPDX headers required on all source files.
 
 ## Setup Commands
@@ -49,6 +49,8 @@ git diff --exit-code  # fails if formatting changed anything
 ## Testing
 
 - Tests live in `test/runtests.jl`
+- Frozen spike feature fixtures: `test/fixtures/spike_vectors.json` (LIM-41; deterministic outputs + range invariants)
+- Fixture note: `detect_bursts` golden params (`max_isi`/`min_spikes`) apply only to the explicit `detect_bursts` check; `windowed_spike_features.burst_count` and `normalized_feature_vector` burst component use API defaults (`max_isi=0.02`, `min_spikes=3`).
 - Run full suite before pushing: `julia --project=. -e 'using Pkg; Pkg.test()'`
 - All tests must pass; coverage upload is handled by Codecov CI
 - Output ranges are documented in README — do not change without updating docs
