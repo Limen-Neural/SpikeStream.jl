@@ -1,6 +1,6 @@
 # AGENTS.md
 
-<!-- version: 1.0.0 | updated: 2026-07-06 -->
+<!-- version: 1.0.0 | updated: 2026-07-22 -->
 <!-- identity: SpikeStream.jl coding agent guide -->
 
 Instructions for AI coding agents working on SpikeStream.jl.
@@ -13,10 +13,14 @@ Follow the conventions below for all code changes.
 
 ## Repository Context
 
+- Issue tracker: Linear issue markers use the acronym LIM (Linear issue ID prefix).
+
 - SpikeStream.jl is a Julia package for spike-stream feature extraction in spiking neural systems (SNNs).
 - Package boundary — these functions belong to SpikeStream.jl:
   - `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector`
-- Removed: `compute_hurst` (Hurst exponent), `compute_hawkes` (Hawkes intensity), and `compute_gbm_surprise` (Geometric Brownian Motion surprise) now belong to the Rust sibling repo `kinetic-signals`.
+- Sibling repo: [Limen-Neural/kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) (Rust) owns Hurst, Hawkes, surprise/geometric Brownian motion (GBM), entropy, and volatility.
+- Removed from SpikeStream.jl (do not reintroduce): `compute_hurst`, `compute_hawkes`, `compute_gbm_surprise` — now kinetic-signals only.
+- Integration: no foreign-function interface (FFI) today; spike fixtures will live in this package (LIM-41); kinetic-signals `shared_vectors.json` is Rust-only.
 - License: dual MIT / Apache-2.0. SPDX headers required on all source files.
 
 ## Setup Commands

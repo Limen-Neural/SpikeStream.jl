@@ -38,6 +38,25 @@ SpikeStream.jl is focused on feature extraction from spike-event streams.
   - `burst_count >= 0`
 - `normalized_feature_vector` → length-4 vector in `[0, 1]`
 
+## Package Boundary
+
+SpikeStream.jl owns spike-stream **feature extraction** only. Kinetic / signal-dynamics APIs live in the Rust sibling [Limen-Neural/kinetic-signals](https://github.com/Limen-Neural/kinetic-signals).
+
+| Area | Owner | Notes |
+| --- | --- | --- |
+| `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector` | **SpikeStream.jl** | Public API of this package |
+| Hurst exponent | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_hurst` (removed) |
+| Hawkes intensity | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_hawkes` (removed) |
+| Surprise / GBM | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_gbm_surprise` (removed) |
+| Entropy | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Not part of SpikeStream.jl |
+| Volatility | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Not part of SpikeStream.jl |
+
+### Integration
+
+- No FFI between SpikeStream.jl and kinetic-signals today.
+- Spike fixtures for cross-package tests will live in this package (LIM-41).
+- kinetic-signals `shared_vectors.json` is Rust-only (not consumed by SpikeStream.jl).
+
 ## Quick Start
 
 ```julia
