@@ -38,7 +38,7 @@ SpikeStream.jl is focused on feature extraction from spike-event streams.
   - `burst_count >= 0`
 - `normalized_feature_vector` → length-4 vector in `[0, 1]`
 
-## Package boundary
+## Package Boundary
 
 SpikeStream.jl owns spike-stream **feature extraction** only. Kinetic / signal-dynamics APIs live in the Rust sibling [Limen-Neural/kinetic-signals](https://github.com/Limen-Neural/kinetic-signals).
 

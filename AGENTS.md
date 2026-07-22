@@ -1,6 +1,6 @@
 # AGENTS.md
 
-<!-- version: 1.0.0 | updated: 2026-07-06 -->
+<!-- version: 1.0.0 | updated: 2026-07-22 -->
 <!-- identity: SpikeStream.jl coding agent guide -->
 
 Instructions for AI coding agents working on SpikeStream.jl.
