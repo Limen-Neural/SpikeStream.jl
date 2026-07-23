@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT OR Apache-2.0
 
 using Test
+using JSON
 using SpikeStream
 
 @testset "SpikeStream" begin
@@ -89,6 +90,156 @@ using SpikeStream
             max_density = 100.0,
         )
         @test vec_window[4] ≈ 1 / 3
+    end
+
+    @testset "frozen spike fixtures (LIM-41)" begin
+        fixture_path = joinpath(@__DIR__, "fixtures", "spike_vectors.json")
+        @test isfile(fixture_path)
+
+        fixture = JSON.parsefile(fixture_path)
+        @test haskey(fixture, "tolerance")
+        @test haskey(fixture, "cases")
+        cases = fixture["cases"]
+        @test length(cases) >= 2
+
+        tol = Float64(fixture["tolerance"])
+        required_expect_keys = (
+            "spike_count",
+            "spike_density",
+            "isi_stats",
+            "detect_bursts",
+            "windowed_spike_features",
+            "normalized_feature_vector",
+        )
+
+        for case in cases
+            cname = get(case, "name", "<unnamed>")
+            @testset "$cname" begin
+                @test haskey(case, "name")
+                @test haskey(case, "spike_times")
+                @test haskey(case, "expect")
+                expect = case["expect"]
+                for key in required_expect_keys
+                    @test haskey(expect, key)
+                end
+
+                times = Float64.(case["spike_times"])
+
+                # --- spike_count ---
+                got_count = spike_count(times)
+                @test got_count == Int(expect["spike_count"])
+                @test got_count >= 0
+
+                # --- spike_density (full window from fixture) ---
+                dens_exp = expect["spike_density"]
+                dens_start = Float64(dens_exp["t_start"])
+                dens_end = Float64(dens_exp["t_end"])
+                got_density = spike_density(times; t_start = dens_start, t_end = dens_end)
+                @test isapprox(
+                    got_density,
+                    Float64(dens_exp["value"]);
+                    atol = tol,
+                    rtol = 0,
+                )
+                @test got_density >= 0
+
+                # windowed density over the same bounds (count / duration)
+                windowed_count = spike_count(times; t_start = dens_start, t_end = dens_end)
+                duration = dens_end - dens_start
+                if length(times) >= 2 && duration > 0
+                    @test isapprox(
+                        got_density,
+                        windowed_count / duration;
+                        atol = tol,
+                        rtol = 0,
+                    )
+                end
+
+                # --- isi_stats ---
+                stats = isi_stats(times)
+                isi_exp = expect["isi_stats"]
+                for field in ("mean", "std", "min", "max", "cv")
+                    got = getfield(stats, Symbol(field))
+                    @test isapprox(got, Float64(isi_exp[field]); atol = tol, rtol = 0)
+                    @test got >= 0
+                end
+
+                # --- detect_bursts ---
+                burst_exp = expect["detect_bursts"]
+                max_isi = Float64(burst_exp["max_isi"])
+                min_spikes = Int(burst_exp["min_spikes"])
+                bursts = detect_bursts(times; max_isi = max_isi, min_spikes = min_spikes)
+                ranges_exp = burst_exp["ranges"]
+                @test length(bursts) == length(ranges_exp)
+                for (burst, range_pair) in zip(bursts, ranges_exp)
+                    @test first(burst) == Int(range_pair[1])
+                    @test last(burst) == Int(range_pair[2])
+                    @test burst isa UnitRange{Int}
+                end
+
+                # --- windowed_spike_features ---
+                win_exp = expect["windowed_spike_features"]
+                feats = windowed_spike_features(
+                    times;
+                    window_size = Float64(win_exp["window_size"]),
+                    step = Float64(win_exp["step"]),
+                    t_start = Float64(win_exp["t_start"]),
+                    t_end = Float64(win_exp["t_end"]),
+                )
+                windows_exp = win_exp["windows"]
+                @test length(feats) == length(windows_exp)
+                for (feat, wexp) in zip(feats, windows_exp)
+                    @test isapprox(
+                        feat.t_start,
+                        Float64(wexp["t_start"]);
+                        atol = tol,
+                        rtol = 0,
+                    )
+                    @test isapprox(feat.t_end, Float64(wexp["t_end"]); atol = tol, rtol = 0)
+                    @test feat.count == Int(wexp["count"])
+                    @test isapprox(
+                        feat.density,
+                        Float64(wexp["density"]);
+                        atol = tol,
+                        rtol = 0,
+                    )
+                    @test isapprox(
+                        feat.isi_mean,
+                        Float64(wexp["isi_mean"]);
+                        atol = tol,
+                        rtol = 0,
+                    )
+                    @test isapprox(
+                        feat.isi_cv,
+                        Float64(wexp["isi_cv"]);
+                        atol = tol,
+                        rtol = 0,
+                    )
+                    @test feat.burst_count == Int(wexp["burst_count"])
+
+                    # documented range invariants
+                    @test feat.count >= 0
+                    @test feat.density >= 0
+                    @test feat.isi_mean >= 0
+                    @test feat.isi_cv >= 0
+                    @test feat.burst_count >= 0
+                end
+
+                # --- normalized_feature_vector ---
+                nfv_exp = expect["normalized_feature_vector"]
+                nfv = normalized_feature_vector(
+                    times;
+                    t_start = Float64(nfv_exp["t_start"]),
+                    t_end = Float64(nfv_exp["t_end"]),
+                    max_density = Float64(nfv_exp["max_density"]),
+                )
+                expected_vec = Float64.(nfv_exp["value"])
+                @test length(nfv) == 4
+                @test length(expected_vec) == 4
+                @test all(isapprox.(nfv, expected_vec; atol = tol, rtol = 0))
+                @test all(0.0 .<= nfv .<= 1.0)
+            end
+        end
     end
 
 end

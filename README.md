@@ -47,14 +47,15 @@ SpikeStream.jl owns spike-stream **feature extraction** only. Kinetic / signal-d
 | `spike_count`, `spike_density`, `isi_stats`, `detect_bursts`, `windowed_spike_features`, `normalized_feature_vector` | **SpikeStream.jl** | Public API of this package |
 | Hurst exponent | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_hurst` (removed) |
 | Hawkes intensity | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_hawkes` (removed) |
-| Surprise / GBM | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_gbm_surprise` (removed) |
+| Surprise / geometric Brownian motion (GBM) | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Formerly transitional `compute_gbm_surprise` (removed) |
 | Entropy | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Not part of SpikeStream.jl |
 | Volatility | [kinetic-signals](https://github.com/Limen-Neural/kinetic-signals) | Not part of SpikeStream.jl |
 
 ### Integration
 
-- No FFI between SpikeStream.jl and kinetic-signals today.
-- Spike fixtures for cross-package tests will live in this package (LIM-41).
+- No foreign-function interface (FFI) between SpikeStream.jl and kinetic-signals today.
+- Spike fixtures for cross-package tests live in this package: [`test/fixtures/spike_vectors.json`](test/fixtures/spike_vectors.json) (LIM-41).
+- Window note: with explicit `t_end`, `windowed_spike_features` uses half-open windows `[t_start, t_end)`; `spike_count` / `spike_density` use inclusive ends. Fixtures encode this.
 - kinetic-signals `shared_vectors.json` is Rust-only (not consumed by SpikeStream.jl).
 
 ## Quick Start

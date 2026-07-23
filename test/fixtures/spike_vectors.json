@@ -1,0 +1,214 @@
+{
+  "cases": [
+    {
+      "expect": {
+        "detect_bursts": {
+          "max_isi": 0.01,
+          "min_spikes": 3,
+          "ranges": [
+            [
+              1,
+              3
+            ]
+          ]
+        },
+        "isi_stats": {
+          "cv": 1.0533755265810956,
+          "max": 0.1,
+          "mean": 0.05,
+          "min": 0.003999999999999999,
+          "std": 0.05266877632905478
+        },
+        "normalized_feature_vector": {
+          "max_density": 10.0,
+          "t_end": 1.0,
+          "t_start": 0.0,
+          "value": [
+            1.0,
+            0.5,
+            0.5266877632905478,
+            0.2
+          ]
+        },
+        "spike_count": 5,
+        "spike_density": {
+          "t_end": 0.2,
+          "t_start": 0.0,
+          "value": 25.0
+        },
+        "windowed_spike_features": {
+          "step": 0.1,
+          "t_end": 0.2,
+          "t_start": 0.0,
+          "window_size": 0.1,
+          "windows": [
+            {
+              "burst_count": 1,
+              "count": 3,
+              "density": 30.0,
+              "isi_cv": 0.15713484026367738,
+              "isi_mean": 0.0045,
+              "t_end": 0.1,
+              "t_start": 0.0
+            },
+            {
+              "burst_count": 0,
+              "count": 1,
+              "density": 10.0,
+              "isi_cv": 0.0,
+              "isi_mean": 0.0,
+              "t_end": 0.2,
+              "t_start": 0.1
+            }
+          ]
+        }
+      },
+      "name": "burst_train",
+      "spike_times": [
+        0.0,
+        0.005,
+        0.009,
+        0.1,
+        0.2
+      ]
+    },
+    {
+      "expect": {
+        "detect_bursts": {
+          "max_isi": 0.02,
+          "min_spikes": 3,
+          "ranges": []
+        },
+        "isi_stats": {
+          "cv": 0.47140452079103173,
+          "max": 1.0,
+          "mean": 0.75,
+          "min": 0.5,
+          "std": 0.3535533905932738
+        },
+        "normalized_feature_vector": {
+          "max_density": 10.0,
+          "t_end": 1.5,
+          "t_start": 0.0,
+          "value": [
+            1.0,
+            0.2,
+            0.23570226039551587,
+            0.0
+          ]
+        },
+        "spike_count": 3,
+        "spike_density": {
+          "t_end": 1.5,
+          "t_start": 0.0,
+          "value": 2.0
+        },
+        "windowed_spike_features": {
+          "step": 0.5,
+          "t_end": 1.5,
+          "t_start": 0.0,
+          "window_size": 0.5,
+          "windows": [
+            {
+              "burst_count": 0,
+              "count": 1,
+              "density": 2.0,
+              "isi_cv": 0.0,
+              "isi_mean": 0.0,
+              "t_end": 0.5,
+              "t_start": 0.0
+            },
+            {
+              "burst_count": 0,
+              "count": 1,
+              "density": 2.0,
+              "isi_cv": 0.0,
+              "isi_mean": 0.0,
+              "t_end": 1.0,
+              "t_start": 0.5
+            },
+            {
+              "burst_count": 0,
+              "count": 0,
+              "density": 0.0,
+              "isi_cv": 0.0,
+              "isi_mean": 0.0,
+              "t_end": 1.5,
+              "t_start": 1.0
+            }
+          ]
+        }
+      },
+      "name": "sparse_edge",
+      "spike_times": [
+        0.0,
+        0.5,
+        1.5
+      ]
+    },
+    {
+      "expect": {
+        "detect_bursts": {
+          "max_isi": 0.02,
+          "min_spikes": 3,
+          "ranges": []
+        },
+        "isi_stats": {
+          "cv": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "min": 0.0,
+          "std": 0.0
+        },
+        "normalized_feature_vector": {
+          "max_density": 10.0,
+          "t_end": 1.0,
+          "t_start": 0.0,
+          "value": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "spike_count": 1,
+        "spike_density": {
+          "t_end": 1.0,
+          "t_start": 0.0,
+          "value": 0.0
+        },
+        "windowed_spike_features": {
+          "step": 0.5,
+          "t_end": 1.0,
+          "t_start": 0.0,
+          "window_size": 0.5,
+          "windows": [
+            {
+              "burst_count": 0,
+              "count": 1,
+              "density": 2.0,
+              "isi_cv": 0.0,
+              "isi_mean": 0.0,
+              "t_end": 0.5,
+              "t_start": 0.0
+            },
+            {
+              "burst_count": 0,
+              "count": 0,
+              "density": 0.0,
+              "isi_cv": 0.0,
+              "isi_mean": 0.0,
+              "t_end": 1.0,
+              "t_start": 0.5
+            }
+          ]
+        }
+      },
+      "name": "single_spike",
+      "spike_times": [
+        0.25
+      ]
+    }
+  ],
+  "tolerance": 1.0e-12
+}
